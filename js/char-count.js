@@ -29,8 +29,15 @@ var API;
 
                 if(counter)
                 {
-                    API.emptyNode(counter);
-                    counter.appendChild(document.createTextNode(limit - textEl.value.length));
+                    if(counter.nodeName.toLowerCase() == 'input')
+                    {
+                        counter.value = limit - textEl.value.length;
+                    }
+                    else
+                    {
+                        API.emptyNode(counter);
+                        counter.appendChild(document.createTextNode(limit - textEl.value.length));                        
+                    }
                 }
             };
 
@@ -47,7 +54,6 @@ var API;
 
             var onchar = function(e, keyCode)
             {
-                console.log(this.value.length, "\x" + keyCode.toString(16));
                 window.setTimeout(function()
                 {
                     update();
@@ -68,7 +74,6 @@ var API;
                     }, 1);
                 }
             };
-
 
             API.attachKeyboardListeners(
                 textEl,
